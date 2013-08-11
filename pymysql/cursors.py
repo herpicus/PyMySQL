@@ -105,7 +105,10 @@ class Cursor(object):
                 #Worst case it will throw a Value error
                 escaped_args = conn.escape(args)
 
-            query = query % escaped_args
+            try:
+                query = query.decode(charset) % conn.escape(args)
+            except:
+                pass
 
         result = 0
         try:
